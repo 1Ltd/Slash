@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <import type="com.myAllVideoBrowser.R" />
+        <variable name="viewModel" type="com.myAllVideoBrowser.ui.main.home.browser.webTab.WebTabViewModel" />
+        <variable name="videoTabVModel" type="com.myAllVideoBrowser.ui.main.home.browser.detectedVideos.IVideoDetector" />
+        <variable name="browserMenuListener" type="com.myAllVideoBrowser.ui.main.home.browser.BrowserListener" />
+        <variable name="settingsViewModel" type="com.myAllVideoBrowser.ui.main.settings.SettingsViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/customView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/containerBrowser"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipChildren="false">
+
+            <!-- Browser toolbar: scroll-to-hide -->
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/app_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="?colorSurface"
+                app:elevation="0dp">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:paddingHorizontal="4dp"
+                    app:layout_scrollFlags="scroll|enterAlways|snap">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <!-- Nav buttons: close, back, forward -->
+                        <LinearLayout
+                            android:id="@+id/buttons_block"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/iv_close_tab"
+                                style="?attr/materialIconButtonStyle"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:onClick="@{() -> browserMenuListener.onTabCloseClicked()}"
+                                app:icon="@drawable/tab_close_24px"
+                                app:iconTint="?colorOnSurface" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/iv_go_back"
+                                style="?attr/materialIconButtonStyle"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:onClick="@{() -> browserMenuListener.onBrowserBackClicked()}"
+                                app:icon="@drawable/arrow_back24px"
+                                app:iconTint="?colorOnSurface" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/iv_go_forward"
+                                style="?attr/materialIconButtonStyle"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:onClick="@{() -> browserMenuListener.onBrowserForwardClicked()}"
+                                app:icon="@drawable/arrow_forward24px"
+                                app:iconTint="?colorOnSurface" />
+                        </LinearLayout>
+
+                        <!-- URL bar (surfaceVariant rounded pill) -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/url_bar_container"
+                            android:layout_width="0dp"
+                            android:layout_height="44dp"
+                            android:layout_marginHorizontal="4dp"
+                            app:cardBackgroundColor="?colorSurfaceVariant"
+                            app:cardCornerRadius="22dp"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/browser_menu_container"
+                            app:layout_constraintStart_toEndOf="@+id/buttons_block"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                                android:id="@id/et_search"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@null"
+                                android:focusable="@{viewModel.isTabInputFocused}"
+                                android:focusableInTouchMode="@{viewModel.isTabInputFocused}"
+                                android:gravity="center_vertical"
+                                android:hint="@string/browser_search_hint"
+                                android:onClick="@{() -> viewModel.changeTabFocus(true)}"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="48dp"
+                                android:singleLine="true"
+                                android:text="@{viewModel.getTabTextInput()}"
+                                android:textAppearance="?textAppearanceBodyMedium"
+                                app:items="@{viewModel.listTabSuggestions}" />
+
+                            <!-- Refresh/stop button overlaid inside url bar -->
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/iv_close_refresh"
+                                style="?attr/materialIconButtonStyle"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_gravity="end|center_vertical"
+                                android:onClick="@{() -> viewModel.isShowProgress() ? browserMenuListener.onBrowserStopClicked() : browserMenuListener.onBrowserReloadClicked()}"
+                                app:icon="@{viewModel.progressIcon}"
+                                app:iconTint="?colorOnSurfaceVariant" />
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Menu button -->
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/browser_menu_container"
+                            style="?attr/materialIconButtonStyle"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:onClick="@{() -> browserMenuListener.onBrowserMenuClicked()}"
+                            app:icon="@drawable/ic_more_24dp"
+                            app:iconTint="?colorOnSurface"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.appbar.MaterialToolbar>
+
+                <!-- Thin animated page load bar (primary color) -->
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/progressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:progress="@{viewModel.progress}"
+                    android:visibility="@{viewModel.isShowProgress ? View.VISIBLE : View.GONE}"
+                    app:indicatorColor="?colorPrimary"
+                    app:trackColor="@android:color/transparent"
+                    app:trackCornerRadius="0dp"
+                    app:trackThickness="3dp" />
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <LinearLayout
+                    android:id="@+id/webview_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/home_bottom_bar_size"
+                    android:orientation="horizontal" />
+
+                <!-- Detection loading side indicator -->
+                <FrameLayout
+                    android:layout_width="3dp"
+                    android:layout_height="700dp"
+                    android:visibility="@{(videoTabVModel.hasCheckLoadingsM3u8() || videoTabVModel.hasCheckLoadingsRegular()) ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <ProgressBar
+                        style="@android:style/Widget.ProgressBar.Horizontal"
+                        android:layout_width="700dp"
+                        android:layout_height="match_parent"
+                        android:indeterminate="true"
+                        android:indeterminateDrawable="@drawable/progress_load_data"
+                        android:rotation="90" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/fullscreen_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Floating download FAB (Seal: primaryContainer tonal) -->
+            <com.myAllVideoBrowser.ui.component.widget.MovableContainer
+                android:id="@+id/floating_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:focusable="true"
+                android:translationZ="20dp"
+                android:visibility="@{settingsViewModel.getVideoButtonState() ? View.VISIBLE : View.GONE}">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding_large"
+                    android:backgroundTint="?colorPrimaryContainer"
+                    android:contentDescription="@string/open_download_dialog_or_restart"
+                    android:onClick="@{() -> videoTabVModel.showVideoInfo()}"
+                    android:src="@{videoTabVModel.getDownloadBtnIcon()}"
+                    app:borderWidth="0dp"
+                    app:tint="?colorOnPrimaryContainer"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:id="@+id/loadingWavy"
+                    android:layout_width="57dp"
+                    android:layout_height="57dp"
+                    android:layout_margin="@dimen/padding_large"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/round_corner"
+                    android:backgroundTint="@android:color/transparent"
+                    android:contentDescription="@string/loading_image_view"
+                    android:focusable="false"
+                    android:translationZ="@dimen/padding_small"
+                    android:visibility="@{videoTabVModel.getDownloadBtnIcon() == R.drawable.invisible_24px ? View.VISIBLE : View.GONE}" />
+            </com.myAllVideoBrowser.ui.component.widget.MovableContainer>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </FrameLayout>
+</layout>

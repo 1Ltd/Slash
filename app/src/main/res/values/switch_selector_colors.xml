@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Referenced as @color/switch_thumb_selector in old layout files (proxy/etc.) -->
+</resources>

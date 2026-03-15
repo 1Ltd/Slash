@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+        <variable name="viewModel" type="com.myAllVideoBrowser.ui.main.progress.ProgressViewModel" />
+        <variable name="mainViewModel" type="com.myAllVideoBrowser.ui.main.home.MainViewModel" />
+        <variable name="adapter" type="com.myAllVideoBrowser.ui.component.adapter.ProgressAdapter" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:attr/colorBackground">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?colorSurface"
+            app:elevation="0dp"
+            app:liftOnScroll="true"
+            app:liftOnScrollTargetViewId="@+id/rv_progress">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:titleCentered="true"
+                app:title="@string/title_progress"
+                app:titleTextAppearance="?textAppearanceTitleLarge" />
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <!-- Empty state (Seal: centered icon + body text) -->
+        <LinearLayout
+            android:id="@+id/layout_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="32dp"
+            android:visibility="@{viewModel.progressInfos.size() == 0 ? View.VISIBLE : View.GONE}"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="88dp"
+                android:layout_height="88dp"
+                android:src="@drawable/ic_empty"
+                android:scaleType="fitCenter"
+                android:layout_marginBottom="20dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Rounded" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/progress_empty_message"
+                android:textAppearance="?textAppearanceBodyLarge"
+                android:textColor="?colorOnSurfaceVariant"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingTop="8dp"
+            android:paddingBottom="16dp"
+            app:items="@{viewModel.progressInfos}"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <FrameLayout
+            android:id="@+id/anchor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

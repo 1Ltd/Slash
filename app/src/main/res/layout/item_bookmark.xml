@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable name="bookmarkItem" type="com.myAllVideoBrowser.data.local.room.entity.PageInfo" />
+        <variable name="bookmarkUrl" type="String" />
+        <variable name="bookmarksListener" type="com.myAllVideoBrowser.ui.component.adapter.BookmarksListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{(view) -> bookmarksListener.onBookmarkOpenClicked(view, bookmarkItem)}"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="10dp">
+
+        <!-- Favicon in a tonal container -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/favicon_container"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            app:cardBackgroundColor="?colorSurfaceVariant"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/favicon"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center"
+                app:bitmap="@{bookmarkItem.faviconBitmap()}"
+                app:shapeAppearanceOverlay="@style/customImageViewRounded" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Title -->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{bookmarkItem.name}"
+            android:textAppearance="?textAppearanceBodyLarge"
+            app:layout_constraintEnd_toStartOf="@+id/iv_more"
+            app:layout_constraintStart_toEndOf="@+id/favicon_container"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="YouTube" />
+
+        <!-- URL -->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_link"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{bookmarkItem.link}"
+            android:textAppearance="?textAppearanceBodySmall"
+            android:textColor="?colorOnSurfaceVariant"
+            app:layout_constraintEnd_toStartOf="@+id/iv_more"
+            app:layout_constraintStart_toEndOf="@+id/favicon_container"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            tools:text="https://youtube.com" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/iv_more"
+            style="?attr/materialIconButtonStyle"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            app:icon="@drawable/ic_more_24dp"
+            app:iconTint="?colorOnSurfaceVariant"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="webTab" type="com.myAllVideoBrowser.ui.main.home.browser.webTab.WebTab" />
+        <variable name="tabListener" type="com.myAllVideoBrowser.ui.component.adapter.WebTabsListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{(v) -> tabListener.onSelectTabClicked(webTab)}"
+        android:paddingHorizontal="12dp">
+
+        <!-- Favicon -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/faviconTab"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            app:bitmap="@{webTab.favicon}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/customImageViewRounded" />
+
+        <!-- Tab title -->
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tab_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{webTab.title}"
+            android:textAppearance="?textAppearanceBodyMedium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/closeTab"
+            app:layout_constraintStart_toEndOf="@+id/faviconTab"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Tab Title" />
+
+        <!-- Close tab -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/closeTab"
+            style="?attr/materialIconButtonStyle"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:onClick="@{(v) -> tabListener.onCloseTabClicked(webTab)}"
+            app:icon="@drawable/tab_close_24px"
+            app:iconTint="?colorOnSurfaceVariant"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

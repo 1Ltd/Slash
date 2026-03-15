@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="viewModel" type="com.myAllVideoBrowser.ui.main.home.browser.BrowserViewModel" />
+    </data>
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Main pager -->
+        <com.myAllVideoBrowser.ui.main.home.browser.CustomViewPager2
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:currentItem="@{viewModel.currentTab}"
+            app:items="@{viewModel.tabs}" />
+
+        <!-- Seal-style tabs drawer: surface background, full width on small screens -->
+        <LinearLayout
+            android:id="@+id/drawer_layout_content"
+            android:layout_width="280dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="?colorSurface"
+            android:orientation="vertical">
+
+            <!-- Drawer header -->
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:paddingTop="56dp"
+                android:paddingBottom="16dp"
+                android:text="Open tabs"
+                android:textAppearance="?textAppearanceTitleMedium"
+                android:textColor="?colorOnSurface" />
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tabs_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingTop="8dp"
+                app:items="@{viewModel.tabs}" />
+        </LinearLayout>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+</layout>

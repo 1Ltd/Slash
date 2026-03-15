@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable name="pageInfo" type="com.myAllVideoBrowser.data.local.room.entity.PageInfo" />
+        <variable name="listener" type="com.myAllVideoBrowser.ui.component.adapter.TopPageAdapter.TopPagesListener" />
+    </data>
+
+    <!-- Seal style: tonal surface card, icon on top, label below -->
+    <LinearLayout
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:onClick="@{() -> listener.onItemClicked(pageInfo)}"
+        android:orientation="vertical"
+        android:padding="6dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            app:cardBackgroundColor="?colorSurfaceVariant"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/img_icon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                app:shapeAppearanceOverlay="@style/customImageViewRounded" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="@{pageInfo.getTitleFiltered()}"
+            android:textAppearance="?textAppearanceLabelSmall"
+            android:textColor="?colorOnSurfaceVariant"
+            tools:text="YouTube" />
+    </LinearLayout>
+</layout>

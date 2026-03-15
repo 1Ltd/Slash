@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark mode: Seal green palette (seed: #a3d48d) -->
+    <color name="colorPrimary">#9CD67E</color>
+    <color name="colorPrimaryDark">#1E5008</color>
+    <color name="colorPrimaryContainer">#1E5008</color>
+    <color name="colorOnPrimaryContainer">#B7F397</color>
+    <color name="colorAccent">#BCCBB1</color>
+    <color name="colorAccentDark">#3D4A36</color>
+    <color name="colorSecondaryContainer">#3D4A36</color>
+    <color name="colorTertiary">#A0CFD0</color>
+    <color name="colorTertiaryContainer">#1E4D4E</color>
+    <color name="colorSurface">#1A1C19</color>
+    <color name="colorSurfaceVariant">#424940</color>
+    <color name="colorOnSurface">#E2E3DB</color>
+    <color name="colorOnSurfaceVariant">#C3C8BC</color>
+    <color name="colorOutline">#8C9388</color>
+    <color name="colorBackground">#1A1C19</color>
+    <color name="colorOnPrimary">#063B00</color>
+</resources>

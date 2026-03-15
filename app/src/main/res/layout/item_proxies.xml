@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="proxy" type="com.myAllVideoBrowser.data.local.model.Proxy" />
+        <variable name="proxiesListener" type="com.myAllVideoBrowser.ui.component.adapter.ProxiesListener" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="4dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="1dp"
+        app:strokeWidth="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="14dp">
+
+            <!-- Proxy type chip -->
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{proxy.type.name()}"
+                app:chipBackgroundColor="?colorSecondaryContainer"
+                app:chipMinHeight="28dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="SOCKS5" />
+
+            <!-- Host:Port -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/item_host"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@{proxy.host + ':' + proxy.port}"
+                android:textAppearance="?textAppearanceTitleSmall"
+                app:layout_constraintBottom_toBottomOf="@+id/chip_type"
+                app:layout_constraintEnd_toStartOf="@+id/removeProxyButton"
+                app:layout_constraintStart_toEndOf="@+id/chip_type"
+                app:layout_constraintTop_toTopOf="@+id/chip_type"
+                tools:text="192.168.1.1:8080" />
+
+            <!-- Auth label -->
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text='@{proxy.user.empty ? "No authentication" : "Auth: " + proxy.user}'
+                android:textAppearance="?textAppearanceBodySmall"
+                android:textColor="?colorOnSurfaceVariant"
+                app:layout_constraintEnd_toStartOf="@+id/removeProxyButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/chip_type"
+                tools:text="No authentication" />
+
+            <!-- Remove button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/removeProxyButton"
+                style="?attr/materialIconButtonStyle"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:onClick="@{() -> proxiesListener.onProxyRemoveClicked(proxy)}"
+                app:icon="@drawable/delete_forever_24px"
+                app:iconTint="?colorError"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

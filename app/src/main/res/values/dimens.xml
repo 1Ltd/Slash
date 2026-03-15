@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Padding (Seal uses generous spacing) -->
+    <dimen name="padding_tiny">4dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_normal">16dp</dimen>
+    <dimen name="padding_large">24dp</dimen>
+    <dimen name="browser_title_padding">40dp</dimen>
+
+    <!-- Text sizes (M3 scale) -->
+    <dimen name="text_tiny">11sp</dimen>
+    <dimen name="text_small">13sp</dimen>
+    <dimen name="text_medium">15sp</dimen>
+    <dimen name="text_large">17sp</dimen>
+    <dimen name="text_xlarge">20sp</dimen>
+    <dimen name="text_xxlarge">22sp</dimen>
+    <dimen name="text_xxxlarge">24sp</dimen>
+
+    <!-- Splash -->
+    <dimen name="splash_progress_size">48dp</dimen>
+    <dimen name="splash_icon_size">96dp</dimen>
+
+    <!-- Home -->
+    <dimen name="home_bottom_bar_size">80dp</dimen>
+
+    <!-- Browser -->
+    <dimen name="browser_title_size">48dp</dimen>
+    <dimen name="browser_progress_size">3dp</dimen>
+    <dimen name="browser_icon_size">56dp</dimen>
+    <dimen name="browser_toolbar_elevation">0dp</dimen>
+    <dimen name="browser_loading_size">48dp</dimen>
+
+    <!-- Progress -->
+    <dimen name="progress_icon_size">64dp</dimen>
+    <dimen name="progress_bar_size">6dp</dimen>
+
+    <!-- Video -->
+    <dimen name="video_icon_size">80dp</dimen>
+
+    <!-- Player -->
+    <dimen name="player_button_size">52dp</dimen>
+
+    <!-- Settings -->
+    <dimen name="settings_divider_size">1dp</dimen>
+    <dimen name="settings_icon_size">24dp</dimen>
+
+    <!-- Cards -->
+    <dimen name="card_corner_radius">16dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+</resources>

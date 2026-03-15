@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="dialogListener" type="com.myAllVideoBrowser.ui.component.adapter.DownloadTabListener" />
+        <variable name="viewModel" type="com.myAllVideoBrowser.ui.main.home.browser.detectedVideos.VideoDetectionTabViewModel" />
+    </data>
+
+    <!-- Seal-style detected videos sheet: surface bg, title, list, cancel at bottom -->
+    <LinearLayout
+        android:id="@+id/detected_videos_tab_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginBottom="60dp">
+
+        <!-- Sheet handle + title row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp">
+
+            <!-- Seal-style drag handle indicator -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="@string/title"
+                android:textAppearance="?textAppearanceTitleMedium" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp" />
+
+        <!-- Detected video list -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/video_info_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:paddingVertical="8dp"
+            app:items="@{viewModel.detectedVideosList}" />
+
+        <!-- Cancel row -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/tv_cancel"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            android:onClick="@{() -> dialogListener.onCancel()}"
+            android:text="@string/dialog_download_cancel"
+            app:icon="@drawable/ic_cancel_24dp"
+            app:iconTint="?colorOnSurfaceVariant" />
+    </LinearLayout>
+</layout>

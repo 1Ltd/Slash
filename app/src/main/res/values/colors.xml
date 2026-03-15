@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Seal-inspired Material You green palette (seed: #a3d48d) -->
+    <color name="colorPrimary">#386A20</color>
+    <color name="colorPrimaryDark">#1E4A08</color>
+    <color name="colorPrimaryContainer">#B7F397</color>
+    <color name="colorOnPrimaryContainer">#052100</color>
+    <color name="colorAccent">#55624C</color>
+    <color name="colorAccentDark">#3D4A36</color>
+    <color name="colorSecondaryContainer">#D8E8CB</color>
+    <color name="colorTertiary">#386667</color>
+    <color name="colorTertiaryContainer">#BCEBEC</color>
+    <color name="colorSurface">#FDFDF5</color>
+    <color name="colorSurfaceVariant">#DFE4D8</color>
+    <color name="colorOnSurface">#1A1C19</color>
+    <color name="colorOnSurfaceVariant">#424940</color>
+    <color name="colorOutline">#72796E</color>
+    <color name="colorBackground">#FDFDF5</color>
+
+    <!-- Dark variants -->
+    <color name="colorPrimaryDarkMode">#9CD67E</color>
+    <color name="colorPrimaryContainerDark">#1E5008</color>
+    <color name="colorSurfaceDark">#1A1C19</color>
+    <color name="colorSurfaceVariantDark">#424940</color>
+
+    <!-- Proxy (blue accent, unchanged) -->
+    <color name="colorPrimaryProxy">#64B5F6</color>
+    <color name="colorPrimaryDarkProxy">#2196F3</color>
+    <color name="colorAccentProxy">#355DC3</color>
+    <color name="colorAccentDarkProxy">#233E9F</color>
+    <color name="colorGreen">#D938BC1A</color>
+
+    <!-- Neutrals -->
+    <color name="color_gray">#72796E</color>
+    <color name="color_gray_1">#EEF2EA</color>
+    <color name="color_gray_2">#72796E</color>
+    <color name="color_gray_3">#386667</color>
+
+    <color name="colorPrimary_20">#33386A20</color>
+    <color name="black_15">#26000000</color>
+    <color name="black_55">#8C000000</color>
+    <color name="black_85">#D9000000</color>
+    <color name="black">#FF000000</color>
+    <color name="white_15">#26ffffff</color>
+    <color name="white_55">#8Cffffff</color>
+    <color name="white_85">#D9ffffff</color>
+    <color name="white">#FFFFFF</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+</resources>
